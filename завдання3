@@ -1,0 +1,61 @@
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+
+const int n = 5;
+
+bool isPrime(int x)
+{
+    if (x <= 1) return false;
+    for (int i = 2; i * i <= x; i++)
+        if (x % i == 0)
+            return false;
+    return true;
+}
+
+int main()
+{
+    int a[n][n];
+    int i, j;
+
+    cout << "Matrix:\n";
+
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < n; j++)
+        {
+            a[i][j] = rand() % 50;
+            cout << a[i][j] << '\t';
+        }
+        cout << '\n';
+    }
+
+    int sum = 0;
+
+    for (i = 0; i < n; i++)
+        for (j = 0; j < n; j++)
+            if (isPrime(a[i][j]))
+                sum += a[i][j];
+
+    cout << "\nSum of prime numbers = " << sum << endl;
+
+    for (i = 0; i < n - 1; i++)
+        for (j = 0; j < n - 1 - i; j++)
+            if (a[n - 1][j] > a[n - 1][j + 1])
+            {
+                int temp = a[n - 1][j];
+                a[n - 1][j] = a[n - 1][j + 1];
+                a[n - 1][j + 1] = temp;
+            }
+
+    cout << "\nMatrix after sorting last row:\n";
+
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < n; j++)
+            cout << a[i][j] << '\t';
+        cout << '\n';
+    }
+
+    return 0;
+}
